@@ -92,7 +92,7 @@ function Auth({ onLogin, toast }) {
   };
   return (
     <section id="auth">
-      <div className="hero"><h1>Taskyard keeps every project moving.</h1><p>Plan projects, hand out tasks, and see where the work stands without chasing anyone for updates.</p></div>
+      <div className="hero"><h1>Task board keeps every project moving.</h1><p>Plan projects, hand out tasks, and see where the work stands without chasing anyone for updates.</p></div>
       <div className="box">
         <form onSubmit={submit}>
           <h2>{reg ? 'Create account' : 'Sign in'}</h2>
@@ -427,7 +427,7 @@ function TaskDetail({ id }) {
   );
 }
 
-/* ---------- kanban board ---------- */
+/* ---------- update status ---------- */
 function Board() {
   const { ui, run, refresh } = useApp();
   const [pid, setPid] = useState('');
@@ -440,7 +440,7 @@ function Board() {
     if (id) run(async () => { try { await api(`/tasks/${id}/status`, { method: 'PATCH', body: { status } }); } finally { refresh(); } });
   };
   return (
-    <Page title="Kanban board" actions={<select value={pid} onChange={(e) => setPid(e.target.value)}><Options items={(projects || []).map((p) => [p.id, p.name])} blank="All projects" /></select>}>
+    <Page title="Update status" actions={<select value={pid} onChange={(e) => setPid(e.target.value)}><Options items={(projects || []).map((p) => [p.id, p.name])} blank="All projects" /></select>}>
       <div className="board">
         {STATUSES.map((s) => {
           const items = (d?.items || []).filter((t) => t.status === s);
@@ -535,7 +535,7 @@ function Confirm({ msg, onYes }) {
 }
 
 /* ---------- shell ---------- */
-const NAV = [['dashboard', 'Dashboard'], ['projects', 'Projects'], ['tasks', 'All tasks'], ['my', 'My tasks'], ['board', 'Kanban board'], ['users', 'Team & users']];
+const NAV = [['dashboard', 'Dashboard'], ['projects', 'Projects'], ['tasks', 'All tasks'], ['my', 'My tasks'], ['board', 'Update status'], ['users', 'Team & users']];
 
 export default function App() {
   const [user, setUser] = useState(session.user());
